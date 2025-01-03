@@ -1,0 +1,38 @@
+---
+import type { Song } from "../lib/data.ts";
+import PlayLogo from "../icons/Play.astro";
+
+interface Songs {
+    song: Song;
+}
+
+const { song } = Astro.props as Songs;
+const { id, albumId, title, image, artists, album, duration } = song;
+const artistConcat = artists.join(", ");
+---
+
+<li>
+    <div id="container" class="grid grid-rows-1  p-3 rounded-md px-3 text-zinc-400 bg-white/0 hover:bg-white/10">
+        <p>{id}</p>
+        <div class="flex">
+            <img src={image} class="max-w-12"/>
+            <span class="flex flex-col text-sm ml-3 mt-1">
+                <h5 class="font-medium text-white">{title}</h5>
+                <p>{artistConcat}</p>
+            </span>
+        </div>
+        <p>{album}</p>
+        <p>{duration}</p>
+    </div>
+</li>
+
+<style>
+    a:hover .bg-green-500 {
+        opacity: 1;
+    }
+    #container {
+        grid-template-columns: 0.1fr 1.5fr 1.5fr 0.1fr;
+        align-items: center;
+        
+    }
+</style>
