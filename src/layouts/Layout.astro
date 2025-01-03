@@ -1,6 +1,7 @@
 ---
 import HeaderMenu from "../components/HeaderMenu.astro"
 import AsideMenu from "../components/AsideMenu.astro"
+const {title} = Astro.props
 ---
 
 <!doctype html>
@@ -10,7 +11,7 @@ import AsideMenu from "../components/AsideMenu.astro"
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Spoti</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<div id="app" class="p-2 h-screen bg-black ">
@@ -20,14 +21,16 @@ import AsideMenu from "../components/AsideMenu.astro"
 			<aside id="aside" class="bg-primary rounded-md h-full">
 				<AsideMenu/>
 			</aside>
-			<main id="main" class="bg-primary rounded-md"></main>
+			<main id="main" class="bg-primary rounded-md">
+				<slot/>
+			</main>
 			<footer id="player" class="bg-black "></footer>
 		</div>
-		<slot />
+		
 	</body>
 </html>
 
-<style>
+<style is:global>
 	#app {
 		display: grid;
 		grid-template-columns: 1fr 1fr 2fr;
@@ -35,6 +38,7 @@ import AsideMenu from "../components/AsideMenu.astro"
 		column-gap: 0.5rem;
 		row-gap: 0.2rem;
 		height: 100vh;
+		
 	}
 	#header {
 		grid-column: 1 / 4;
