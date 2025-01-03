@@ -14,7 +14,7 @@ const Greeting = () => {
 
   return (
     <div>
-      <h1 className='text-white m-3 font-bold text-3xl' >{message}</h1>
+      <h1 className='text-white z-10  font-bold text-3xl' >{message}</h1>
     </div>
   );
 };
