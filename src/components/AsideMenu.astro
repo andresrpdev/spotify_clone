@@ -1,0 +1,22 @@
+---
+import LibraryLogo from "../icons/Library.astro";
+import AsideCard from "./AsideCard.astro";
+import { playlists } from "../lib/data.ts";
+---
+
+<div id="aside-menu" class="text-gray-400 flex flex-col">
+    <div id="top" class="flex m-5 justify-between items-center">
+        <div class="flex space-x-3 font-bold">
+            <LibraryLogo />
+            <p>Tu biblioteca</p>
+        </div>
+        <div>
+            <button class="text-4xl">+</button>
+        </div>
+    </div>
+    <div id="playlist-container" class="flex flex-col space-y-1 m-5">
+        {playlists.map((playlist) => (
+            <AsideCard playlist={playlist} />
+        ))}
+    </div>
+</div>

@@ -1,0 +1,59 @@
+---
+import HeaderMenu from "../components/HeaderMenu.astro"
+import AsideMenu from "../components/AsideMenu.astro"
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Spoti</title>
+	</head>
+	<body>
+		<div id="app" class="p-2 h-screen bg-black ">
+			<header id="header" class="bg-black flex align-center justify-between">
+				<HeaderMenu/>
+			</header>
+			<aside id="aside" class="bg-primary rounded-md h-full">
+				<AsideMenu/>
+			</aside>
+			<main id="main" class="bg-primary rounded-md"></main>
+			<footer id="player" class="bg-black "></footer>
+		</div>
+		<slot />
+	</body>
+</html>
+
+<style>
+	#app {
+		display: grid;
+		grid-template-columns: 1fr 1fr 2fr;
+		grid-template-rows: 55px auto 50px;
+		column-gap: 0.5rem;
+		row-gap: 0.2rem;
+		height: 100vh;
+	}
+	#header {
+		grid-column: 1 / 4;
+		grid-row: 1;
+	}
+	#aside {
+		grid-column: 1;
+		grid-row: 2;
+		height: 100%;
+	}
+	#main {
+		grid-column: 2 / 4;
+		grid-row: 2;
+	}
+	#player {
+		grid-column: 1 / 4;
+		grid-row: 3;
+	}
+	body {
+		margin: 0;
+	}
+</style>

@@ -1,0 +1,54 @@
+---
+import type { Playlist } from "../lib/data.ts";
+import PlayLogo from "../icons/Play.astro";
+
+interface AsideCardProps {
+    playlist: Playlist;
+}
+
+const { playlist } = Astro.props as AsideCardProps;
+
+const { id, cover, title, artists, color } = playlist;
+
+const artistsString = artists.join(", ");
+---
+
+<a href={`/playlist/${id}`} class="relative flex hover:bg-zinc-700 space-x-3 p-2 rounded-md">
+    <div class="relative max-w-14 max-h-14">
+        <img src={cover} alt={`Cover of ${title}`} class="rounded-md"/>
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <PlayLogo class="h-6 w-6 text-white custom-position"/>
+        </div>
+    </div>
+    <div>
+        <h4 class="text-white font-medium">{title}</h4>
+        <p>Playlist • {artistsString}</p>
+    </div>
+</a>
+
+<style>
+    .relative {
+        position: relative;
+    }
+    .absolute {
+        position: absolute;
+    }
+    .inset-0 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .transition-opacity {
+        transition: opacity 0.3s;
+    }
+    a:hover .absolute {
+        opacity: 1;
+    }
+    .custom-position {
+        position: absolute;
+        top: 50%; /* Adjust this value to position vertically */
+        left: 50%; /* Adjust this value to position horizontally */
+        transform: translate(-50%, -50%); /* Center the icon */
+    }
+</style>
