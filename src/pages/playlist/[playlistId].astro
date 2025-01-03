@@ -39,7 +39,7 @@ const totalDurationFormatted = formatDuration(totalDurationInSeconds);
     playlist ? (
       <div
         id="playlist-container"
-        class="relative transition-all duration-1000 bg-green-800 "
+        class="relative transition-all duration-1000 bg-green-800"
       >
         <div class="relative z-10  pt-10">
           <div id="header" class="flex items-center px-4">
@@ -59,9 +59,9 @@ const totalDurationFormatted = formatDuration(totalDurationInSeconds);
               </p>
             </span>
           </div>
-          <div id="mid" class="my-2 bg-white/10 w-full py-2">
+          <div id="mid" class="my-2 bg-black/15 w-full py-2 min-h-[60vh]">
             <div class="flex items-center ">
-              <div class="bg-green-500 p-2 rounded-full  mx-5 cursor-pointer">
+              <div title=`Reproducir ${playlist.title}` class="bg-green-500 p-2 rounded-full  mx-5 cursor-pointer">
                 <PlayLogo class="h-6 w-6 text-white " />
               </div>
             </div>
