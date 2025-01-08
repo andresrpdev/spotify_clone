@@ -1,7 +1,12 @@
 ---
 import HeaderMenu from "../components/HeaderMenu.astro"
 import AsideMenu from "../components/AsideMenu.astro"
-const {title} = Astro.props
+import { ClientRouter } from 'astro:transitions';
+import PlayerMenu from "../components/PlayerMenu";
+
+
+const {title, imageURL} = Astro.props
+
 ---
 
 <!doctype html>
@@ -10,35 +15,36 @@ const {title} = Astro.props
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
 	<body>
-		<div id="app" class="p-2 h-screen bg-black ">
+		<div id="app" class="p-2 h-screen bg-black">
 			<header id="header" class="bg-black flex align-center justify-between">
 				<HeaderMenu/>
 			</header>
 			<aside id="aside" class="bg-primary rounded-md h-full">
 				<AsideMenu/>
 			</aside>
-			<main id="main"class="[grid-area:main] rounded-md bg-zinc-900 overflow-y-auto w-full">
+			<main id="main" class="[grid-area:main] rounded-md bg-zinc-900 overflow-y-auto w-full">
 				<slot/>
 			</main>
-			<footer id="player" class="bg-black "></footer>
+			<footer id="player" class="bg-black">
+				<PlayerMenu imageURL= {imageURL} client:visible />	
+			</footer>
 		</div>
-		
 	</body>
 </html>
 
 <style is:global>
+
 	#app {
 		display: grid;
 		grid-template-columns: 1fr 1fr 2fr;
-		grid-template-rows: 55px auto 50px;
+		grid-template-rows: 55px 1fr 70px;
 		column-gap: 0.5rem;
 		row-gap: 0.2rem;
 		height: 100vh;
-		
 	}
 	#header {
 		grid-column: 1 / 4;
