@@ -1,6 +1,6 @@
 ---
 import type { Song } from "../lib/data.ts";
-import PlayLogo from "../icons/Play.astro";
+import { Play } from "../icons/PlayerIcons.tsx";
 
 interface Songs {
     song: Song;
@@ -11,9 +11,16 @@ const { id, albumId, title, image, artists = [], album, duration } = song;
 const artistConcat = artists.join(", ");
 ---
 
-<li>
+<li class="relative">
     <div id="container" class="grid grid-rows-1 p-3 rounded-md px-3 text-zinc-400 bg-white/0 hover:bg-white/10">
-        <p>{id}</p>
+        <div class="relative flex items-center">
+            <div class="id-container relative flex items-center justify-center">
+                <p class="id-text">{id}</p>
+                <button class="absolute top-0 left-0 w-full h-full flex items-center justify-center  opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <Play className="h-4 w-4 text-zinc-400" />
+                </button>
+            </div>
+        </div>
         <div class="flex">
             <img src={image} class="max-w-12"/>
             <span class="flex flex-col text-sm ml-3 mt-1">
@@ -27,11 +34,19 @@ const artistConcat = artists.join(", ");
 </li>
 
 <style>
-    a:hover .bg-green-500 {
-        opacity: 1;
-    }
     #container {
         grid-template-columns: 0.1fr 1.5fr 1.5fr 0.1fr;
         align-items: center;
+    }
+    .id-container {
+        position: relative;
+        width: 2rem; /* Ajusta según sea necesario */
+        height: 2rem; /* Ajusta según sea necesario */
+    }
+    li:hover .absolute {
+        opacity: 1;
+    }
+    li:hover .id-text {
+        opacity: 0;
     }
 </style>

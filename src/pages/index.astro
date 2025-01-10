@@ -4,21 +4,24 @@ import Layout from '../layouts/Layout.astro';
 import Greetings from "../components/Greetings.tsx";
 import { playlists } from '../lib/data';
 import MainCard from '../components/MainCard.astro';
+
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+
 ---
 
 <Layout title="Spotify Clone">
     <div
     id="playlist-container"
-    class="relative transition-all duration-1000 bg-green-600"
+    class="relative transition-all duration-1000 bg-blue-600 rounded-md"
     
   >
     <!-- <PageHeader /> -->
 
     <div class="relative z-10 px-6 pt-10">
       <Greetings />
-      <div class="grid gap-6 mt-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="flex gap-3 flex-wrap items-center">
         {playlists.map((playlist) => <MainCard playlist={playlist} />)}
       </div>
 

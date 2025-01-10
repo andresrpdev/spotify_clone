@@ -1,48 +1,59 @@
-import { useState } from "react";
-
+import { useState, useRef, useEffect } from "react";
+import { useMusicStore } from "../stores/musicStore";
 const PlayButton = () => (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="currentColor"
-  ><path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path></svg>
-  )
+    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="currentColor">
+        <path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path>
+    </svg>
+);
 
-const PauseButton = () => (
-    <svg role="img" className="h-8 w-8" aria-hidden="true" viewBox="0 0 16 16"
-  ><path
-    d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"
-  ></path></svg>
-)
+const PauseButton = ({className}) => (
+    <svg role="img" className={className} aria-hidden="true" viewBox="0 0 16 16">
+        <path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path>
+    </svg>
+);
 
+const PlayerMenu = ({ imageURL }) => {
+    const {isPlaying, setIsPlaying} = useMusicStore(state => state);
+    const audioRef = useRef(null);
 
+    useEffect(() => {
+        audioRef.current.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3";
+    }, []);
 
-const PlayerMenu = ({imageURL}) => {
-
-    const [isPlaying, setIsPlaying] = useState(false);
-
+    const handleClick = () => {
+        if (isPlaying) {
+            audioRef.current.pause();
+        } else {
+            audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      
+    };
 
     return (
-        <div className="player-menu flex items-center justify-between w-full h-full ">
+        <div className="player-menu flex items-center justify-between w-full h-full">
             <div id="left" className="flex items-center space-x-4">
-            <picture>
-                    <img className='ml-2 max-w-16 h-auto' src= {imageURL} alt = "Cover" />
+                <picture>
+                    <img className="ml-2 max-w-16 h-auto" src={imageURL} alt="Cover" />
                 </picture>
                 <div className="text-white">
-                <h1 className="text-lg font-semibold">Nombre de la canción</h1>
+                    <h1 className="text-lg font-semibold">Nombre de la canción</h1>
                     <p className="text-sm text-zinc-400">Nombre del artista</p>
                 </div>
             </div>
 
-            <div id="mid" className="flex items-center align-center flex-grow max-w-48 text-gray-400 ">
-                <button onClick={()=>setIsPlaying(!isPlaying)} className="bg-white rounded-full p-1 text-black">
-                    {isPlaying ? <PauseButton /> : <PlayButton />}
+            <div id="mid" className="flex items-center align-center flex-grow max-w-48 text-gray-400">
+                <button onClick={handleClick} className="bg-white rounded-full w-9 h-9 flex items-center justify-center text-black">
+                    {isPlaying ? <PauseButton className={"h-7 w-7 m-1"} /> : <PlayButton />}
                 </button>
-                
-            </div> 
+            </div>
 
             <div id="right" className="flex items-center space-x-3">
                 volumen
             </div>
+            <audio ref={audioRef} />
         </div>
     );
-}
+};
 
 export default PlayerMenu;

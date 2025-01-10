@@ -1,7 +1,7 @@
 ---
 import type { Playlist } from "../lib/data.ts";
-import PlayLogo from "../icons/Play.astro";
-import {fade} from "astro:transitions";
+import GreenButton from "./greenButton"; // Verifica que esta ruta sea correcta
+import { fade } from 'astro:transitions';
 
 interface MainCardProps {
     playlist: Playlist;
@@ -9,25 +9,19 @@ interface MainCardProps {
 
 const { playlist } = Astro.props as MainCardProps;
 const { id, cover, title } = playlist;
-
 ---
-
-<a   href={`/playlist/${id}`} class="relative flex bg-white/10 hover:bg-white/25 space-x-4 items-center rounded-md  max-w-[21rem]">
-    <div class="relative max-w-16 max-h-16">
-        <img transition:name=`playlist ${id} image` src={cover} alt={`Cover of ${title}`} class="rounded-bl-md rounded-tl-md"/>
-    </div>
-    <div class="flex-grow">
-        <h4 class="text-white font-bold">{title}</h4>
-    </div>
-    <div class="flex items-center justify-center">
-        <div class="bg-green-500 p-2 rounded-full opacity-0 transition-opacity duration-300 mr-2">
-            <PlayLogo class="h-6 w-6 text-white"/>
+<article class="bg-white/10 hover:bg-white/25 rounded-md">
+<div class="relative flex  space-x-4 items-center rounded-md w-[20rem] group">
+    <a href={`/playlist/${id}`} class="flex-grow flex items-center space-x-4">
+        <div class="relative max-w-16 max-h-16">
+            <img transition:animate={fade({duration: "0.5s"})} transition:name={`playlist ${id} image`} src={cover} alt={`Cover of ${title}`} class="rounded-bl-md rounded-tl-md"/>
         </div>
+        <div class="flex-grow">
+            <h4 class="text-white font-bold">{title}</h4>
+        </div>
+    </a>
+    <div class="absolute right-2 z-10">
+        <GreenButton id={id} className="opacity-0 group-hover:opacity-100 duration-600" client:visible/>
     </div>
-</a>
-
-<style>
-    a:hover .bg-green-500 {
-        opacity: 1;
-    }
-</style>
+</div>
+</article>

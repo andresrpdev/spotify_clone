@@ -30,7 +30,7 @@ const {title, imageURL} = Astro.props
 				<slot/>
 			</main>
 			<footer id="player" class="bg-black">
-				<PlayerMenu imageURL= {imageURL} client:visible />	
+				<PlayerMenu imageURL= {imageURL} client:visible transition:name = "media player" transition:persist />	
 			</footer>
 		</div>
 	</body>
@@ -67,5 +67,6 @@ const {title, imageURL} = Astro.props
 		margin: 0;
 		scrollbar-color: #22e339 #1F2937;
 		scrollbar-width: none;
+		background-color: black;
 	}
 </style>
