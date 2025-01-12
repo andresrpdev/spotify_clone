@@ -1,51 +1,48 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useMusicStore } from "../stores/musicStore";
-const PlayButton = () => (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="currentColor">
-        <path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path>
-    </svg>
-);
 
-const PauseButton = ({className}) => (
-    <svg role="img" className={className} aria-hidden="true" viewBox="0 0 16 16">
-        <path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path>
-    </svg>
-);
+import PlayerControl from "./PlayerControl";
 
-const PlayerMenu = ({ imageURL }) => {
-    const {isPlaying, setIsPlaying} = useMusicStore(state => state);
-    const audioRef = useRef(null);
+const PlayerLeft = ({ imageURL, artists, title }) => {
+    return (
+        <>
+            <picture>
+                <img className="ml-2 max-w-16 h-auto" src={imageURL} alt="Cover" />
+            </picture>
+            <div className="text-white">
+                <h1 className="text-lg font-semibold">{title}</h1>
+                <p className="text-sm text-zinc-400">{artists}</p>
+            </div>
+        </>
+    );
+};
+
+const PlayerMenu = () => {
+    const { isPlaying, setIsPlaying, currentMusic, setCurrentMusic } = useMusicStore(state => state);
+    const audioRef = useRef();
 
     useEffect(() => {
-        audioRef.current.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3";
-    }, []);
-
-    const handleClick = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-        } else {
+        const { song, playlist } = currentMusic;
+        if (song) {
+            const url = `/music/${playlist.id}/0${song.id}.mp3`;
+            audioRef.current.src = url;
             audioRef.current.play();
+            setIsPlaying(true);
         }
-        setIsPlaying(!isPlaying);
-      
-    };
+    }, [currentMusic]);
+
+    useEffect(() => {
+        isPlaying ? audioRef.current.play() : audioRef.current.pause();
+    }, [isPlaying]);
 
     return (
         <div className="player-menu flex items-center justify-between w-full h-full">
-            <div id="left" className="flex items-center space-x-4">
-                <picture>
-                    <img className="ml-2 max-w-16 h-auto" src={imageURL} alt="Cover" />
-                </picture>
-                <div className="text-white">
-                    <h1 className="text-lg font-semibold">Nombre de la canción</h1>
-                    <p className="text-sm text-zinc-400">Nombre del artista</p>
-                </div>
+            <div id="left" className="flex items-center space-x-4 w-52">
+                <PlayerLeft imageURL={currentMusic.song?.image} artists={currentMusic.song?.artists} title={currentMusic.song?.title} />
             </div>
 
             <div id="mid" className="flex items-center align-center flex-grow max-w-48 text-gray-400">
-                <button onClick={handleClick} className="bg-white rounded-full w-9 h-9 flex items-center justify-center text-black">
-                    {isPlaying ? <PauseButton className={"h-7 w-7 m-1"} /> : <PlayButton />}
-                </button>
+                <PlayerControl />
             </div>
 
             <div id="right" className="flex items-center space-x-3">

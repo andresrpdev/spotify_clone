@@ -10,8 +10,8 @@ interface MainCardProps {
 const { playlist } = Astro.props as MainCardProps;
 const { id, cover, title } = playlist;
 ---
-<article class="bg-white/10 hover:bg-white/25 rounded-md">
-<div class="relative flex  space-x-4 items-center rounded-md w-[20rem] group">
+<article class="bg-white/10 hover:bg-white/25 rounded-md " >
+<div class="relative flex  space-x-4 items-center rounded-md w-[20rem] group ">
     <a href={`/playlist/${id}`} class="flex-grow flex items-center space-x-4">
         <div class="relative max-w-16 max-h-16">
             <img transition:animate={fade({duration: "0.5s"})} transition:name={`playlist ${id} image`} src={cover} alt={`Cover of ${title}`} class="rounded-bl-md rounded-tl-md"/>
