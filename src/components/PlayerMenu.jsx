@@ -60,10 +60,10 @@ const SongSlider = ({ audio }) => {
     };
 
     return (
-        <div className="flex space-x-2 items-center justify-center">
-            <span>{formatTime(currentTime)}</span>
+        <div className="flex space-x-4 items-center justify-center w-[500px]">
+            <span className="w-12 text-center">{formatTime(currentTime)}</span>
             <Slider
-                className="w-[500px]"
+                className="flex-grow"
                 min={0}
                 max={duration}
                 defaultValue={[0]}
@@ -72,8 +72,7 @@ const SongSlider = ({ audio }) => {
                     audio.current.currentTime = value[0];
                 }}
             />
-            <span className="cursor-default" onClick={toggleDuration}>{showRemaining ? formatTime(duration - currentTime) : formatTime(duration)}</span>
-            
+            <span className="w-12 text-center cursor-default" onClick={toggleDuration}>{showRemaining ? formatTime(duration - currentTime) : formatTime(duration)}</span>
         </div>
     );
 };
@@ -140,7 +139,7 @@ const PlayerMenu = () => {
                     <VolumeIcon audio={audioRef} />
                 </div>
                 <Slider
-                    className="w-28"
+                    className="w-[100px]"
                     min={0}
                     max={100}
                     defaultValue={[100]}
