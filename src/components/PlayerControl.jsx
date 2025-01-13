@@ -31,11 +31,11 @@ export default function PlayerControl() {
     };
 
     return (
-        <div className='flex gap-x-4'>
+        <div className='flex gap-x-4 my-2'>
             <button onClick={handlePrev}>
                 <PrevIcon />
             </button>
-            <button onClick={handleClick}>
+            <button onClick={handleClick} className='bg-white rounded-full p-2 text-black'>
                 {isPlaying ? <Pause /> : <Play />}
             </button>
             <button onClick={handleNext}>
