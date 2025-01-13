@@ -139,7 +139,7 @@ const PlayerMenu = () => {
                     <VolumeIcon audio={audioRef} />
                 </div>
                 <Slider
-                    className="w-[100px]"
+                    className="w-28"
                     min={0}
                     max={100}
                     defaultValue={[100]}
