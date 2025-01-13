@@ -30,7 +30,7 @@ const {title, imageURL} = Astro.props
 				<slot/>
 			</main>
 			<footer id="player" class="bg-black">
-				<PlayerMenu imageURL= {imageURL} client:visible transition:name = "media player" transition:persist />	
+				<PlayerMenu client:visible transition:name = "media player" transition:persist />	
 			</footer>
 		</div>
 	</body>
@@ -41,7 +41,7 @@ const {title, imageURL} = Astro.props
 	#app {
 		display: grid;
 		grid-template-columns: 1fr 1fr 2fr;
-		grid-template-rows: 55px 1fr 70px;
+		grid-template-rows: 55px 1fr 90px;
 		column-gap: 0.5rem;
 		row-gap: 0.2rem;
 		height: 100vh;

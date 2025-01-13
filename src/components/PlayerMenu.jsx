@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useMusicStore } from "../stores/musicStore";
-
+import {Slider} from "./Slider"
 import PlayerControl from "./PlayerControl";
 
 const PlayerLeft = ({ imageURL, artists, title }) => {
@@ -36,7 +36,7 @@ const PlayerMenu = () => {
     }, [isPlaying]);
 
     return (
-        <div className="player-menu flex items-center justify-between w-full h-full">
+        <div className="player-menu flex items-center justify-between w-full h-full px-2">
             <div id="left" className="flex items-center space-x-4 w-52">
                 <PlayerLeft imageURL={currentMusic.song?.image} artists={currentMusic.song?.artists} title={currentMusic.song?.title} />
             </div>
@@ -46,7 +46,9 @@ const PlayerMenu = () => {
             </div>
 
             <div id="right" className="flex items-center space-x-3">
-                volumen
+                <Slider
+                    className="w-[95px]"
+                />
             </div>
             <audio ref={audioRef} />
         </div>
