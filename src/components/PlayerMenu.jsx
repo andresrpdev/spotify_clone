@@ -134,12 +134,12 @@ const PlayerMenu = () => {
                 <SongSlider audio = {audioRef}/>
             </div>
 
-            <div id="right" className="flex items-center justify-center space-x-2">
+            <div id="right" className="flex  w-[120px]   space-x-2">
                 <div className="text-zinc-500">
                     <VolumeIcon audio={audioRef} />
                 </div>
                 <Slider
-                    className="w-32"
+                    className="flex-grow"
                     min={0}
                     max={100}
                     defaultValue={[100]}
